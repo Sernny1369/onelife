@@ -1,68 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block h1 %}Nos Causes{% endblock %}
-
-{% block body %}
-    
-      <a class="btn btn-primary" href="{{ path('app_cause_new') }}">Ajouter une cause</a>
-
-
-      {% if cause %}
-         <table class="table table-hover table-striped table-bordered text-center">
-            <thead>
-                <tr>
-                   <th>ID</th>
-                   <th>title</th>
-                   <th>Description</th>
-                   <th></th>
-                </tr>
-            </thead>
-            <tbody>
-               {% for case in cause %}
-                  <tr>
-                     {# objet.property #}
-                     <td>{{ case.id }}</td>
-                     <td>{{ case.title }}</td>
-                     <td>{{ case.img }}</td>
-                     <td>{{ case.description }}</td>
-                  
-                        <a 
-                           title="Fiche {{ case.title }}" 
-                           href="{{ path(   'app_cause_show'   ,  {'id': case.id }    ) }}"
-                        ><i class="text-warning" data-feather="file"></i></a>
-                        
-
-
-                        <a href="{{ path('app_cause_edit', {'id': case.id})}}">
-                           <i class="text-info" data-feather="edit"></i>
-                        </a>
-
-                        <a 
-                           href="{{ path('app_cause_delete', {'id': case.id})}}" 
-                           onclick="return confirm('Etes-vous sûr de vouloir supprimer cette Cause ?')"
-                        >
-                           <i class="text-danger" data-feather="trash"></i>
-                        </a>
-
-                     </td>
-                  </tr>
-               {% endfor %}
-            </tbody>
-         </table>
-      {% else %}
-         <h4 class="fst-italic text-danger text-center">Aucun résultat</h4>
-      {% endif %}
-
-
-
-
-
+{% block h1 %}Nos Causes
 {% endblock %}
 
+{% block body %}
+
+	<a class="btn btn-primary" href="{{ path('app_cause_new') }}">Ajouter une cause</a><div>
+  
+   </div>
+
+	{% if cause %}
+		<table class="table table-hover table-striped table-bordered text-center">
+			<thead>
+				<tr class="row">
+					<th class="col">ID</th>
+					<th class="col">title</th>
+					<th class="col">Image</th>
+					<th class="col">Description</th>
+					<th class="col">Option</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for case in cause %}
+					<tr class="row">
+						{# objet.property #}
+						<td class="col">{{ case.id }}</td>
+						<td class="col">{{ case.title }}</td>
+						<td class="col"><img src="{{ case.img }}" alt="" class="card-img-top"></td>
+						<td class="col">{{ case.description }}</td>
+						<td class="col">
+			
+
+							<a title="Fiche {{ case.title }}" class="btn btn-primary" href="{{ path('app_cause_show', {'id':case.id}) }}">details</a>
+							<a class="btn btn-primary" href="{{ path('app_cause_edit', {'id':case.id}) }}">Modifier</a>
+							<a class="btn btn-primary" href="{{ path('app_cause_delete', {'id':case.id})}}" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette Cause ?')"}}">supprimer</a>
+						</td>
+					</tr>
+				</td>
+			</tbody>
+		</tr>
+	{% endfor %}
+</tbody>
+</table>
+{% else %}<h4 class="fst-italic text-danger text-center">Aucun résultat</h4>
+{% endif %}
+{% endblock %}
 {% block javascripts %}
 <script src="https://unpkg.com/feather-icons"></script>
-<script>
-      feather.replace();
-    </script>
-
+<script>feather.replace();</script>
 {% endblock %}
