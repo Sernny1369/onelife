@@ -1,20 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CauseController!{% endblock %}
+{% block h1 %}Nos Causes{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    
+      <a class="btn btn-primary" href="{{ path('app_cause_new') }}">Ajouter une cause</a>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>D:/b3/challengeWeb/onelife/src/Controller/CauseController.php</code></li>
-        <li>Your template at <code>D:/b3/challengeWeb/onelife/templates/cause/index.html.twig</code></li>
-    </ul>
-</div>
+      {% if cause %}
+         <table class="table table-hover table-striped table-bordered text-center">
+            <thead>
+                <tr>
+                   <th>ID</th>
+                   <th>title</th>
+                   <th>Description</th>
+                   <th></th>
+                </tr>
+            </thead>
+            <tbody>
+               {% for case in cause %}
+                  <tr>
+                     {# objet.property #}
+                     <td>{{ case.id }}</td>
+                     <td>{{ case.title }}</td>
+                     <td>{{ case.img }}</td>
+                     <td>{{ case.description }}</td>
+                  
+                        <a 
+                           title="Fiche {{ case.title }}" 
+                           href="{{ path(   'app_cause_show'   ,  {'id': case.id }    ) }}"
+                        ><i class="text-warning" data-feather="file"></i></a>
+                        
+
+
+                        <a href="{{ path('app_cause_edit', {'id': case.id})}}">
+                           <i class="text-info" data-feather="edit"></i>
+                        </a>
+
+                        <a 
+                           href="{{ path('app_cause_delete', {'id': case.id})}}" 
+                           onclick="return confirm('Etes-vous sûr de vouloir supprimer cette Cause ?')"
+                        >
+                           <i class="text-danger" data-feather="trash"></i>
+                        </a>
+
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      {% else %}
+         <h4 class="fst-italic text-danger text-center">Aucun résultat</h4>
+      {% endif %}
+
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+      feather.replace();
+    </script>
+
 {% endblock %}

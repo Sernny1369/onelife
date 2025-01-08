@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}Modifier la cause{% endblock %}
+
+{% block body %}
+
+
+
+
+<a class="btn btn-primary" href="{{ path('app_cause') }}">Les Causes</a>
+{{ form_start(formCause) }}
+
+    <div class="row">
+       <div class="col-md-6">
+       {{ form_row(formCause.title) }}
+       </div>
+       <div class="col-md-6">{{ form_row(formCause.img) }}</div>
+    </div>
+
+       
+       {{ form_row(formCause.description) }}
+
+       <input type="submit" class="btn btn-primary w-100 mt-3" value="Modifier la cause">
+
+    {{ form_end(formCause) }}
+
+{% endblock %}
