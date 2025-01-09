@@ -89,8 +89,13 @@
             position: relative;
             top: 1em;
             text-transform: lowercase;
+            opacity: 0; /* Initialement transparent */
+            transition: opacity 0.5s ease; /* Transition en douceur pour l'opacité */
             transform: translateZ(20px); /* Pousse également le sous-texte */
+        }
 
+        .e-card:hover .name {
+            opacity: 1; /* Rendre visible lors du survol de la carte */
         }
 
         /* Disposition des cartes centrée */
@@ -126,7 +131,7 @@
         <h1 class="page-title">Cause à soutenir</h1>
 
         <!-- Bouton "Ajouter une cause" en haut à droite -->
-        <a href="{{ path('app_cause_new') }}">
+        <!-- href= 'app_cause_new' -->
             <button class="add-cause-btn">Ajouter une cause</button>
         </a>
 
