@@ -143,6 +143,15 @@
 			<button class="add-cause-btn">Ajouter un sujet</button>
 		</a>
 
+		{% if subjects is empty %}
+			<div class="alert alert-info"> table vide cree un sujet pour commencer</div>
+		{% else %}
+
+		<a href="{{ path('app_subjects_show',{'id':1}) }}">
+			<button class="btn btn-danger">Lancer</button>
+		</a>
+		{% endif %}
+
 		<div class="row">
 			{% for subject in subjects %}
 				<a class="col-4" href="{{ path('app_subjects_show', {'id': subject.id}) }}">

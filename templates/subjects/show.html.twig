@@ -57,6 +57,10 @@
 <h1>Subjects</h1>
 <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="col-4">
+	{% if subjects is empty %}
+	<div class="alert alert-info"> table vide</div>
+	{% else %}
+
         <div class="e-card h-100">
             <div class="wave"></div>
             <img src="{{ subject.img }}" alt=" h-100" class="card-img-top img">
@@ -73,6 +77,7 @@
                 </div>
             </div>
         </div>
+		{% endif %}
     </div>
 </div>
 <script>
