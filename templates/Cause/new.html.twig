@@ -3,36 +3,121 @@
 {% block h1 %}Ajouter un produit{% endblock %}
 
 {% block body %}
-
-    {#
-      En twig, il y a 2 façons d'afficher un formulaire Symfony
-      - tout d'un coup avec la fonction twig form() : elle créée l'intégralité du formulaire de la balise form ouvrante à la balise form fermante
-
-      {{ form(formProduct) }}
-
-      syntaxe : parent.enfant
-    #}
-
     {{ form_start(formCause) }}
+    
+    <div class="form-container">
+        <div class="form">
+            <div class="form-group">
+                {{ form_label(formCause.title) }}
+                {{ form_widget(formCause.title) }}
+            </div>
+            
+            <div class="form-group">
+                {{ form_label(formCause.img) }}
+                {{ form_widget(formCause.img) }}
+            </div>
 
-    <div class="row">
-       <div class="col-md-6">
-       {{ form_row(formCause.title) }}
-       {# {{ form_widget(formProduct.name) }}
-       {{ form_label(formProduct.name) }}
-       {{ form_errors(formProduct.name) }}
-       {{ form_help(formProduct.name) }} #}
-       </div>
+            <div class="form-group">
+                {{ form_label(formCause.description) }}
+                {{ form_widget(formCause.description) }}
+            </div>
+            
+            <button type="submit" class="form-submit-btn">
+                Ajouter le produit
+            </button>
+        </div>
     </div>
 
-       
-       {{ form_row(formCause.img) }}
-       {{ form_row(formCause.description) }}
+    {{ form_end(formCause) }}
 
+    <style>
+        /* From Uiverse.io by gharsh11032000 */
+        .form-container {
+            width: 400px;
+            margin: 100px auto;
+            background: linear-gradient(#212121, #212121) padding-box,
+                        linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
+            border: 3px solid transparent;
+            padding: 32px 24px;
+            font-size: 14px;
+            font-family: inherit;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+            border-radius: 16px;
+        }
 
-       <input type="submit" class="btn btn-primary w-100 mt-3" value="Ajouter le produit">
+        .form-container button:active {
+            scale: 0.95;
+        }
 
-    {{ form_end(formCause ) }}
-    
-    
+        .form-container .form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-container .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .form-container .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color:rgba(255, 255, 255, 0.86);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .form-container .form-group input,
+        .form-container .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.86);
+        }
+
+        .form-container .form-group input::placeholder {
+            opacity: 0.5;
+        }
+
+        .form-container .form-group input:focus,
+        .form-container .form-group textarea:focus {
+            outline: none;
+            border-color: #e81cff;
+        }
+
+        .form-container .form-submit-btn {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            align-self: center;
+            font-family: inherit;
+            color: rgba(255, 255, 255, 0.86);
+            font-weight: 600;
+            width: 40%;
+            background: #313131;
+            border: 1px solid #414141;
+            padding: 12px 16px;
+            font-size: inherit;
+            gap: 8px;
+            margin-top: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .form-container .form-submit-btn:hover {
+            background-color: #fff;
+            border-color: #fff;
+            color: #313131;
+        }
+    </style>
+
 {% endblock %}
