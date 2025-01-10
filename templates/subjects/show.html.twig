@@ -1,30 +1,85 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Subjects{% endblock %}
+{% block title %}Subjects
+{% endblock %}
 
 {% block body %}
-    <h1>Subjects</h1>
+	<style>
+		.page-title {
+			text-align: center;
+			font-size: 2.5em;
+			font-weight: bold;
+			margin: 40px 0;
+			color: white;
+			text-shadow: 2px 2px 0 #000, /* Ombre en bas à droite */
+			-2px -2px 0 #000, /* Ombre en haut à gauche */
+			-2px 2px 0 #000, /* Ombre en bas à gauche */
+			2px -2px 0 #000; /* Ombre en haut à droite */
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ subject.id }}</td>
-            </tr>
-            <tr>
-                <th>Img</th>
-                <td>{{ subject.img }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ subject.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+			animation: fadeIn 2s ease-in-out;
+		}
 
-    <a href="{{ path('app_subjects') }}">back to list</a>
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
 
-    <a href="{{ path('app_subjects_edit', {'id': subject.id}) }}">edit</a>
+		.e-card {
+			margin: 20px;
+			background: linear-gradient(135deg, #5b42f3, #00ddeb);
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+			position: relative;
+			width: 240px;
+			height: 330px;
+			border-radius: 16px;
+			overflow: hidden;
+		}
+		.e-card:hover {
+			transition: scale(1.5);
+		}
+		.infotop {
+			text-align: center;
+			font-size: 20px;
+			top: 5.6em;
+			left: 0;
+			right: 0;
+			color: rgb(255, 255, 255);
+			font-weight: 600;
+		}
+	</style>
 
-    {{ include('subjects/_delete_form.html.twig') }}
+<h1>Subjects</h1>
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-4">
+        <div class="e-card h-100">
+            <div class="wave"></div>
+            <img src="{{ subject.img }}" alt=" h-100" class="card-img-top img">
+            <div class="infotop">
+                <div class="name">
+                    <h4>Description de la cause</h4>
+                    {{ subject.description }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-success selection" onclick="redirectToNextSubject({{ subject.id }})">pour</button>
+                    <button class="btn btn-danger selection" onclick="redirectToNextSubject({{ subject.id }})">contre</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+   function redirectToNextSubject(currentId) {
+        const nextId = currentId + 1; // Assuming the next ID is current ID + 1
+        window.location.href = `/subjects/${nextId}`;
+    }
+</script>
+
 {% endblock %}

@@ -102,11 +102,11 @@
 
 	<div class="example-wrapper">
 		<h1>Hello
-			 ✅</h1>
+															 ✅</h1>
 		<div class="row">
-			<a class="col-4" href="{{ path('app_subjects') }}">
-				<div>
-					<div class="e-card playing">
+			<div class="col-4">
+				<div class="e-card playing">
+					<a href="{{ path('app_subjects_show', {'id': 1}) }}">
 						<div class="image"></div>
 						<div class="wave"></div>
 						<div class="wave"></div>
@@ -118,12 +118,12 @@
 							<br>
 							<div class="name">faite votre choix</div>
 						</div>
-					</div>
+					</a>
 				</div>
-			</a>
-			<a class="col-4" href="{{ path('app_cause') }}">
-				<div>
-					<div class="e-card playing">
+			</div>
+			<div class="col-4">
+				<div class="e-card playing">
+					<a href="{{ path('app_cause') }}">
 						<div class="image"></div>
 
 						<div class="wave"></div>
@@ -137,12 +137,12 @@
 							<br>
 							<div class="name">Defender vos cause et partager les</div>
 						</div>
-					</div>
+					</a>
 				</div>
-			</a>
-			<a class="col-4" href="{{path('app_surprise')}}">
-				<div>
-					<div class="e-card playing">
+			</div>
+			<div class="col-4">
+				<div class="e-card playing">
+					<a href="{{path('app_surprise')}}">
 						<div class="image"></div>
 						<div class="wave"></div>
 						<div class="wave"></div>
@@ -153,9 +153,9 @@
 							<br>
 							<div class="name">cliquez si vous le voulez</div>
 						</div>
-					</div>
+					</a>
 				</div>
-			</a>
+			</div>
 		</div>
 	</div>
 {% endblock %}
