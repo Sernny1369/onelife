@@ -1,20 +1,153 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SubjectsController!{% endblock %}
+{% block title %}Cause à soutenir{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        /* Titre centré avec effet */
+        .page-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 40px 0;
+            color: white;
+            text-shadow:
+                2px 2px 0 #000,  /* Ombre en bas à droite */
+                -2px -2px 0 #000, /* Ombre en haut à gauche */
+                -2px 2px 0 #000,  /* Ombre en bas à gauche */
+                2px -2px 0 #000;  /* Ombre en haut à droite */
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            animation: fadeIn 2s ease-in-out;
+        }
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>D:/b3/challengeWeb/onelife/src/Controller/SubjectsController.php</code></li>
-        <li>Your template at <code>D:/b3/challengeWeb/onelife/templates/subjects/index.html.twig</code></li>
-    </ul>
-</div>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Style des cartes */
+        .e-card {
+            margin: 20px;
+            background: linear-gradient(135deg, #5b42f3, #00ddeb);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            width: 240px;
+            height: 330px;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.5s ease, background 0.5s ease;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+
+        .e-card:hover {
+            transform: perspective(1000px) rotateY(20deg) rotateX(10deg);
+            background: linear-gradient(135deg, #af40ff, #ff4edf);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .wave {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 80%);
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        .infotop {
+            text-align: center;
+            font-size: 20px;
+            position: absolute;
+            top: 5.6em;
+            left: 0;
+            right: 0;
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+            transform: translateZ(20px); /* Pousse le texte en avant dans l'espace 3D */
+        }
+
+        .name {
+            font-size: 14px;
+            font-weight: 100;
+            position: relative;
+            top: 1em;
+            text-transform: lowercase;
+            opacity:0;
+            transition:opacity 0.5s ease;
+            transform: translateZ(20px); /* Pousse également le sous-texte */
+
+        }
+        .e-card:hover .name{
+            opacity: 1;
+        }
+        /* Disposition des cartes centrée */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style du bouton "Ajouter une cause" */
+        .add-cause-btn {
+            position: absolute;
+            top: 100px;
+            right: 25px;
+            padding: 10px 15px;
+            font-size: 15px;
+            background-color: #af40ff;
+            color: white;
+            border: flex;
+            border-color: red;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-cause-btn:hover {
+            background-color: navy;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1 class="page-title">Pour ou Contre</h1>
+
+        <!-- Bouton "Ajouter un sujet" en haut à droite -->
+        <a href="{{ path('app_subjects_new') }}">
+            <button class="add-cause-btn">Ajouter un sujet</button>
+        </a>
+
+        <div class="row">
+            {% for subject in subjects %}
+                <a class="col-4" href="{{ path('app_subjects', {'id': subjects.id}) }}">
+                    <div>
+                        <div class="e-card">
+                            <div class="wave"></div>
+                            <div class="infotop">
+                            <img src="{{ subjects.img }}" alt="" class="card-img-top">
+                                <div class="name">Description de la cause {{ subjects.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

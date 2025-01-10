@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subjects index{% endblock %}
+
+{% block body %}
+    <h1>Subjects index</h1>
+
+    <table class="table table-hover table-striped table-bordered text-center">
+        <thead >
+            <tr class="row" >
+                <th class="col">Id</th>
+                <th class="col">Img</th>
+                <th class="col">Description</th>
+                <th class="col">Personne Pour</th>
+                <th class="col">Personne Contre</th>
+                <th class="col">action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subject in subjects %}
+            <tr class="row">
+                <td class="col">{{ subject.id }}</td>
+                <td class="col"><img src="{{ subject.img }}" alt="" class="card-img-top"></td>
+                <td class="col">{{ subject.description }}</td>
+                <td class="col">
+                    <a href="{{ path('app_subjects_show', {'id': subject.id}) }}">show</a>
+                    <a href="{{ path('app_subjects_edit', {'id': subject.id}) }}">Modifier</a>
+                    <a class="btn btn-primary" href="{{ path('app_subjects_delete', {'id':subject.id})}}" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette Cause ?')">supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_subjects_new') }}">Create new</a>
+{% endblock %}
