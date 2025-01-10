@@ -15,9 +15,9 @@ class CauseType extends AbstractType
     {
         $builder
             ->add('title', null, [
-                'label' => 'titre',
+                'label' => 'Titre',
                 'required' => false,
-                'help' => 'Saisir ule titre de la cause entre 4 et 25 caractères',
+                'help' => 'Saisir le titre de la cause entre 4 et 25 caractères',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir le titre de la cause'
@@ -30,8 +30,8 @@ class CauseType extends AbstractType
                     ])
                 ]
             ])
-            ->add('img')
-            ->add('description')
+            ->add('Image')
+            ->add('Description')
         ;
     }
 

@@ -21,7 +21,7 @@ class CauseController extends AbstractController
     public function index(CauseRepository $CauseRepository): Response
     {
         $cause = $CauseRepository->findAll();
-        return $this->render('cause/admin_index.html.twig', [
+        return $this->render('cause/index.html.twig', [
             'cause' => $cause
         ]);
     }
