@@ -30,8 +30,8 @@ class CauseType extends AbstractType
                     ])
                 ]
             ])
-            ->add('Image')
-            ->add('Description')
+            ->add('img')
+            ->add('description')
         ;
     }
 
