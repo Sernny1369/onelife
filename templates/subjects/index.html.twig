@@ -239,6 +239,7 @@
 		<h1 class="page-title">Pour ou Contre</h1>
 
 		<!-- Bouton "Ajouter un sujet" en haut à droite -->
+<<<<<<< HEAD
 		{% if subjects is empty %}
 			<a href="{{ path('app_subjects_new') }}">
 				<button class="add-cause-btn">Ajouter un sujet</button>
@@ -248,6 +249,39 @@
 			<div class="container text-center mt-5">
 				<a href="{{ path('app_subjects_show',{'id':1})}}">
 					<button class="btn btn-danger custom-button">Lancer</button>
+=======
+		<a href="{{ path('app_subjects_new') }}">
+			<button class="add-cause-btn">Ajouter un sujet</button>
+		</a>
+
+		{% if subjects is empty %}
+			<div class="alert alert-info"> table vide cree un sujet pour commencer</div>
+		{% else %}
+
+		<a href="{{ path('app_subjects_show',{'id':1}) }}">
+			<button class="btn btn-danger">Lancer</button>
+		</a>
+		{% endif %}
+
+		<div class="row">
+			{% for subject in subjects %}
+				<a class="col-4" href="{{ path('app_subjects_show', {'id': subject.id}) }}">
+					<div>
+						<div class="e-card">
+							<div class="wave"></div>
+							<img src="{{ subject.img }}" alt="" class="card-img-top img">
+							<div class="infotop">
+								<div class="name">Description de la cause
+									{{ subject.description }}</div>
+							</div>
+							<div class="row">
+								<div class="col"><button class="btn btn-success selection" onclick="">pour</button></div>
+								<div clas="col"><button  class="btn btn-danger selection" onclick="">contre</button></div>
+							</div>
+
+						</div>
+					</div>
+>>>>>>> 3e8bf1ac2a7c1030be0cdb61373d320e23c74cb8
 				</a>
 			</div>
 		{% endif %}
