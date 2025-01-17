@@ -54,7 +54,6 @@
 		}
 	</style>
 
-<<<<<<< HEAD
 
 	<h1 class="page-title">Pour ou contre</h1>
 	<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
@@ -91,39 +90,5 @@ const nextId = currentId + 1; // Assuming the next ID is current ID + 1
 window.location.href = `/subjects/${nextId}`;
 }
 	</script>
-=======
-<h1>Subjects</h1>
-<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="col-4">
-	{% if subjects is empty %}
-	<div class="alert alert-info"> table vide</div>
-	{% else %}
-
-        <div class="e-card h-100">
-            <div class="wave"></div>
-            <img src="{{ subject.img }}" alt=" h-100" class="card-img-top img">
-            <div class="infotop">
-                <div class="name">
-                    <h4>Description de la cause</h4>
-                    {{ subject.description }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-success selection" onclick="redirectToNextSubject({{ subject.id }})">pour</button>
-                    <button class="btn btn-danger selection" onclick="redirectToNextSubject({{ subject.id }})">contre</button>
-                </div>
-            </div>
-        </div>
-		{% endif %}
-    </div>
-</div>
-<script>
-   function redirectToNextSubject(currentId) {
-        const nextId = currentId + 1; // Assuming the next ID is current ID + 1
-        window.location.href = `/subjects/${nextId}`;
-    }
-</script>
->>>>>>> 3e8bf1ac2a7c1030be0cdb61373d320e23c74cb8
 
 {% endblock %}
