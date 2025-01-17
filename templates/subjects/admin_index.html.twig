@@ -3,7 +3,12 @@
 {% block title %}Subjects index{% endblock %}
 
 {% block body %}
+
     <h1>Subjects index</h1>
+    		<!-- Bouton "Ajouter un sujet" en haut à droite -->
+		<a href="{{ path('app_subjects_new') }}">
+			<button class="add-cause-btn">Ajouter un sujet</button>
+		</a>
 
     <table class="table table-hover table-striped table-bordered text-center">
         <thead >
@@ -22,6 +27,8 @@
                 <td class="col">{{ subject.id }}</td>
                 <td class="col"><img src="{{ subject.img }}" alt="" class="card-img-top"></td>
                 <td class="col">{{ subject.description }}</td>
+                <td class="col"></td>
+                <td class="col"></td>
                 <td class="col">
                     <a href="{{ path('app_subjects_show', {'id': subject.id}) }}">show</a>
                     <a href="{{ path('app_subjects_edit', {'id': subject.id}) }}">Modifier</a>
@@ -36,5 +43,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_subjects_new') }}">Create new</a>
 {% endblock %}

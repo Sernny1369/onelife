@@ -15,18 +15,19 @@ security:
             security: false
         main:
             pattern: ^/
-            lazy: true
+            lazy: false
             provider: app_user_provider
-            custom_authenticator: App\Security\EmailAuthenticator
+            custom_authenticators: 
+                - App\Security\EmailAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
                 target: app_login
 
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 604800
-                path: /
+            #remember_me:
+            #    secret: '%kernel.secret%'
+            #    lifetime: 604800
+            #    path: /
                 # by default, the feature is enabled by checking a checkbox in the
                 # login form, uncomment the following line to always enable it.
                 #always_remember_me: true

@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}Hello
+
 {% endblock %}
 
 {% block body %}
 	<style>
 		/* From Uiverse.io by MikeAndrewDesigner */
+		body {
+			background-image: url("{{ asset('images/bg3.jpg') }}");
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
 		.e-card {
 			margin: 100px auto;
 			background: transparent;
@@ -102,11 +109,18 @@
 
 	<div class="example-wrapper">
 		<h1>Hello
-															 ✅</h1>
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+				{{ app.user.firstname }}
+
+			{% endif %}
+		✅
+		</h1>
+
 		<div class="row">
 			<div class="col-4">
 				<div class="e-card playing">
-					<a href="{{ path('app_subjects_show', {'id': 1}) }}">
+					<a href="{{ path('app_subjects')}}">
 						<div class="image"></div>
 						<div class="wave"></div>
 						<div class="wave"></div>

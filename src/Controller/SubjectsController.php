@@ -14,7 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/subjects')]
 final class SubjectsController extends AbstractController
 {
-    #[Route(name: 'app_subjects', methods: ['GET'])]
+    private $subjectsRepository;
+    public function __construct(SubjectsRepository $subjectsRepository)
+    {
+        $this->subjectsRepository = $subjectsRepository;
+    }
+
+    #[Route('/',name: 'app_subjects', methods: ['GET'])]
     public function index(SubjectsRepository $subjectsRepository): Response
     {
         return $this->render('subjects/index.html.twig', [
@@ -22,9 +28,21 @@ final class SubjectsController extends AbstractController
         ]);
     }
 
+    #[Route('/admin',name: 'app_subjects_admin', methods: ['GET'])]
+    public function admin(SubjectsRepository $subjectsRepository): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        return $this->render('subjects/admin_index.html.twig', [
+            'subjects' => $subjectsRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_subjects_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $subject = new Subjects();
         $form = $this->createForm(SubjectsType::class, $subject);
         $form->handleRequest($request);
@@ -45,14 +63,20 @@ final class SubjectsController extends AbstractController
     #[Route('/{id}', name: 'app_subjects_show', methods: ['GET'])]
     public function show(Subjects $subject): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $subjects = $this->subjectsRepository->findAll();
+
         return $this->render('subjects/show.html.twig', [
             'subject' => $subject,
+            'subjects' => $subjects,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_subjects_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_subjects_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Subjects $subject, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(SubjectsType::class, $subject);
         $form->handleRequest($request);
 
@@ -71,9 +95,10 @@ final class SubjectsController extends AbstractController
     #[Route('/delete/{id}', name: 'app_subjects_delete', methods: ['POST'])]
     public function delete(Subjects $subject, EntityManagerInterface $entityManager)
     {
-            $entityManager->remove($subject);
-            $entityManager->flush();
-        
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $entityManager->remove($subject);
+        $entityManager->flush();
 
         return $this->redirectToRoute('app_subjects', [], Response::HTTP_SEE_OTHER);
     }

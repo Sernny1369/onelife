@@ -2,7 +2,7 @@
 
 {% block title %}Cause à soutenir
 {% endblock %}
-
+{% set subjects = subjects|slice(0, 1) %}
 {% block body %}
 	<style>
 		/* Titre centré avec effet */
@@ -130,39 +130,128 @@
 		.add-cause-btn:hover {
 			background-color: navy;
 		}
-        .selection:hover{
-            transform: scale(1.5)
-        }
+		.selection:hover {
+			transform: scale(1.5)
+		}
+
+		/*style du bouton pour Lancer*/
+		.custom-button,
+		.custom-button::after {
+			height: 200px;
+			width: 400px;
+			padding: 16px 20px;
+			font-size: 18px;
+			background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
+			border: 0;
+			color: #fff;
+			letter-spacing: 3px;
+			line-height: 1;
+			box-shadow: 6px 0 0 #00e6f6;
+			outline: transparent;
+			position: relative;
+			border-radius: 5px; /* Bootstrap-style rounded corners */
+			font-size: 50px; /* Increase font size for "LANCER" text */
+		}
+
+		.custom-button::after {
+			--slice-0: inset(50% 50% 50% 50%);
+			--slice-1: inset(80% -6px 0 0);
+			--slice-2: inset(50% -6px 30% 0);
+			--slice-3: inset(10% -6px 85% 0);
+			--slice-4: inset(40% -6px 43% 0);
+			--slice-5: inset(80% -6px 5% 0);
+			content: "LUNCH";
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: linear-gradient(45deg, transparent 3%, #00e6f6 3%, #00e6f6 5%, #ff013c 5%);
+			text-shadow: -3px -3px 0 #f8f005, 3px 3px 0 #00e6f6;
+			clip-path: var(--slice-0);
+		}
+
+		.custom-button:hover::after {
+			animation: 1s glitch;
+			animation-timing-function: steps(2, end);
+		}
+
+		@keyframes glitch {
+			0% {
+				clip-path: var(--slice-1);
+				transform: translate(-20px, -10px);
+			}
+
+			10% {
+				clip-path: var(--slice-3);
+				transform: translate(10px, 10px);
+			}
+
+			20% {
+				clip-path: var(--slice-1);
+				transform: translate(-10px, 10px);
+			}
+
+			30% {
+				clip-path: var(--slice-3);
+				transform: translate(0px, 5px);
+			}
+
+			40% {
+				clip-path: var(--slice-2);
+				transform: translate(-5px, 0px);
+			}
+
+			50% {
+				clip-path: var(--slice-3);
+				transform: translate(5px, 0px);
+			}
+
+			60% {
+				clip-path: var(--slice-4);
+				transform: translate(5px, 10px);
+			}
+
+			70% {
+				clip-path: var(--slice-2);
+				transform: translate(-10px, 10px);
+			}
+
+			80% {
+				clip-path: var(--slice-5);
+				transform: translate(20px, -10px);
+			}
+
+			90% {
+				clip-path: var(--slice-1);
+				transform: translate(-10px, 0px);
+			}
+
+			100% {
+				clip-path: var(--slice-1);
+				transform: translate(0);
+			}
+		}
 	</style>
 
 	<div class="example-wrapper">
 		<h1 class="page-title">Pour ou Contre</h1>
 
 		<!-- Bouton "Ajouter un sujet" en haut à droite -->
-		<a href="{{ path('app_subjects_new') }}">
-			<button class="add-cause-btn">Ajouter un sujet</button>
-		</a>
-
-		<div class="row">
-			{% for subject in subjects %}
-				<a class="col-4" href="{{ path('app_subjects_show', {'id': subject.id}) }}">
-					<div>
-						<div class="e-card">
-							<div class="wave"></div>
-							<img src="{{ subject.img }}" alt="" class="card-img-top img">
-							<div class="infotop">
-								<div class="name">Description de la cause
-									{{ subject.description }}</div>
-							</div>
-							<div class="row">
-								<div class="col"><button class="btn btn-success selection" onclick="">pour</button></div>
-								<div clas="col"><button  class="btn btn-danger selection" onclick="">contre</button></div>
-							</div>
-
-						</div>
-					</div>
+		{% if subjects is empty %}
+			<a href="{{ path('app_subjects_new') }}">
+				<button class="add-cause-btn">Ajouter un sujet</button>
+			</a>
+			<div class="alert alert-info">table vide cree un element</div>
+		{% else %}
+			<div class="container text-center mt-5">
+				<a href="{{ path('app_subjects_show',{'id':1})}}">
+					<button class="btn btn-danger custom-button">Lancer</button>
 				</a>
-			{% endfor %}
-		</div>
+			</div>
+		{% endif %}
+
+
 	</div>
 {% endblock %}

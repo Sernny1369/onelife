@@ -20,7 +20,7 @@ class RegistrationFormType extends AbstractType
             ->add('firstname', null, [
                 'label' => 'Prenom',
                 'required' => false,
-                'help' => 'Saisir un nom de produit entre 4 et 25 caractères',
+                'help' => 'Saisir votre prénom ',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir votre prénom'
