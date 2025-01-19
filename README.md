@@ -15,5 +15,3 @@
 faire attention au port utiliser
 DATABASE_URL="mysql://root:@127.0.0.1:3308/webcha?serverVersion=8.0.32&charset=utf8mb4"
 
-### erreur non resolue:
--lors de l'inscription les info sont ajouter a la base de donneé mais une erreur symfony est affiché
