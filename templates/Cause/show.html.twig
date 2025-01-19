@@ -1,32 +1,135 @@
 {% extends "base.html.twig" %}
 
 {% block h1 %}
-	{{ cause.title }}
+    {{ cause.title }}
 {% endblock %}
 
 {% block body %}
+    <a class="btn-stylish" href="{{ path('app_cause') }}">Home</a>
 
-	<a class="btn btn-primary" href="{{ path('app_cause') }}">home</a>
-
-	<table class="table table-hover table-striped table-bordered text-center">
-		<tr>
-			<th>ID</th>
-			<td>{{cause.id}}</td>
-		</tr>
-		<tr>
-			<th>Titre</th>
-			<td>{{cause.title}}</td>
-		</tr>
+    <table class="table-stylish">
+        <tr>
+            <th>ID</th>
+            <td>{{ cause.id }}</td>
+        </tr>
+        <tr>
+            <th>Titre</th>
+            <td>{{ cause.title }}</td>
+        </tr>
         <tr>
             <th>Image</th>
-            <td>{{cause.img}}</td>
+            <td>{{ cause.img }}</td>
         </tr>
-		<tr>
-			<th>Description</th>
-			<td>{{cause.description}}</td>
-		</tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ cause.description }}</td>
+        </tr>
+    </table>
 
-	</table>
+    <style>
+        /* Style global */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
 
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #4a4a4a;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
+        /* Style du bouton */
+        .btn-stylish {
+            display: inline-block;
+            background: linear-gradient(145deg, #e81cff, #40c9ff);
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-stylish:hover {
+            background: linear-gradient(145deg, #40c9ff, #e81cff);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .btn-stylish:active {
+            transform: scale(0.95);
+        }
+
+        /* Style de la table */
+        .table-stylish {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+        }
+
+        .table-stylish th, .table-stylish td {
+            padding: 20px;
+            text-align: left;
+            font-size: 16px;
+            border-bottom: 1px solid #ddd;
+            word-break: break-word;
+        }
+
+        .table-stylish th {
+            background-color: #007bff;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .table-stylish tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-stylish tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table-stylish tr:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Style responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 26px;
+            }
+
+            .btn-stylish {
+                width: 100%;
+                padding: 15px;
+                font-size: 18px;
+            }
+
+            .table-stylish th, .table-stylish td {
+                padding: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
 {% endblock %}
