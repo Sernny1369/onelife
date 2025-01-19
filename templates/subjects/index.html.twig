@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cause à soutenir
-{% endblock %}
-{% set subjects = subjects|slice(0, 1) %}
+{% block title %}Cause à soutenir{% endblock %}
+
 {% block body %}
 	<style>
 		/* Titre centré avec effet */
@@ -113,25 +112,58 @@
 
 		/* Style du bouton "Ajouter une cause" */
 		.add-cause-btn {
-			position: absolute;
+			position: fixed;
 			top: 100px;
 			right: 25px;
-			padding: 10px 15px;
-			font-size: 15px;
-			background-color: #af40ff;
-			color: white;
-			border: flex;
-			border-color: red;
-			border-radius: 25px;
+			padding: 15px 30px;
+			font-size: 16px;
+			color: #fff;
+			text-transform: uppercase;
+			background: linear-gradient(45deg, #ff4081, #00e6f6);
+			border: none;
+			border-radius: 50px;
 			cursor: pointer;
-			transition: background-color 0.3s ease;
+			outline: none;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+			overflow: hidden;
+			z-index: 1;
+		}
+
+		.add-cause-btn::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 300%;
+			height: 300%;
+			background: rgba(255, 255, 255, 0.3);
+			border-radius: 50%;
+			transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
+			transform: translate(-50%, -50%);
+			z-index: 0;
+		}
+
+		.add-cause-btn:hover::before {
+			width: 0;
+			height: 0;
+			top: 50%;
+			left: 50%;
 		}
 
 		.add-cause-btn:hover {
-			background-color: navy;
+			transform: scale(1.1);
+			box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 		}
-		.selection:hover {
-			transform: scale(1.5)
+
+		.add-cause-btn:active {
+			transform: scale(1);
+			box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		.add-cause-btn span {
+			position: relative;
+			z-index: 1;
 		}
 
 		/*style du bouton pour Lancer*/
@@ -170,9 +202,7 @@
 			background: linear-gradient(45deg, transparent 3%, #00e6f6 3%, #00e6f6 5%, #ff013c 5%);
 			text-shadow: -3px -3px 0 #f8f005, 3px 3px 0 #00e6f6;
 			clip-path: var(--slice-0);
-		}
 
-		.custom-button:hover::after {
 			animation: 1s glitch;
 			animation-timing-function: steps(2, end);
 		}
@@ -239,14 +269,14 @@
 		<h1 class="page-title">Pour ou Contre</h1>
 
 		<!-- Bouton "Ajouter un sujet" en haut à droite -->
-		{% if subjects is empty %}
-			<a href="{{ path('app_subjects_new') }}">
-				<button class="add-cause-btn">Ajouter un sujet</button>
-			</a>
-			<div class="alert alert-info">table vide cree un element</div>
+		<a href="{{ path('app_subjects_new') }}">
+			<button class="add-cause-btn">Ajouter un sujet</button>
+		</a>
+        {% if subjects|length == 0 %}
+			<div class="alert alert-info">La table est vide. Créez un élément.</div>
 		{% else %}
 			<div class="container text-center mt-5">
-				<a href="{{ path('app_subjects_show',{'id':1})}}">
+                <a href="{{ path('app_subjects_show', {'id': subjects[0].id}) }}">
 					<button class="btn btn-danger custom-button">Lancer</button>
 				</a>
 			</div>
