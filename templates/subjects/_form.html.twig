@@ -2,3 +2,97 @@
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+<style>
+    /* Style du formulaire */
+    form {
+        max-width: 500px;
+        margin: 50px auto;
+        background-color: #1e1e1e;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        transition: all 0.3s ease;
+    }
+
+    /* Survol du formulaire */
+    form:hover {
+        transform: scale(1.02);
+    }
+
+    /* Style des champs de formulaire */
+    input, textarea, select {
+        width: 100%;
+        padding: 12px 16px;
+        background-color: transparent;
+        border: 1px solid #4b4b4b;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 16px;
+        font-family: 'Arial', sans-serif;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+
+    /* Survol et focus des champs */
+    input:focus, textarea:focus, select:focus {
+        border-color: #e81cff;
+        outline: none;
+    }
+
+    input::placeholder, textarea::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Style du label des champs */
+    label {
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Style du bouton */
+    .btn {
+        padding: 12px 24px;
+        background-color: #e81cff;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        align-self: flex-end;
+    }
+
+    /* Survol et clic du bouton */
+    .btn:hover {
+        background-color: #40c9ff;
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+    /* Ajout d'un effet de transition */
+    input, button, select, textarea {
+        transition: all 0.3s ease;
+    }
+
+    /* Style responsive */
+    @media (max-width: 768px) {
+        form {
+            padding: 20px;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+</style>
