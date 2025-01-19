@@ -1,94 +1,135 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pour ou contre
-{% endblock %}
+{% block title %}Pour ou contre{% endblock %}
 
 {% block body %}
-	<style>
-		.page-title {
-			text-align: center;
-			font-size: 2.5em;
-			font-weight: bold;
-			margin: 40px 0;
-			color: white;
-			text-shadow: 2px 2px 0 #000, /* Ombre en bas à droite */
-			-2px -2px 0 #000, /* Ombre en haut à gauche */
-			-2px 2px 0 #000, /* Ombre en bas à gauche */
-			2px -2px 0 #000; /* Ombre en haut à droite */
+    <style>
+        .page-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 40px 0;
+            color: white;
+            text-shadow: 2px 2px 0 #000, /* Ombre en bas à droite */
+                        -2px -2px 0 #000, /* Ombre en haut à gauche */
+                        -2px 2px 0 #000, /* Ombre en bas à gauche */
+                        2px -2px 0 #000; /* Ombre en haut à droite */
+            animation: fadeIn 2s ease-in-out;
+        }
 
-			animation: fadeIn 2s ease-in-out;
-		}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-				transform: translateY(-20px);
-			}
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
+        .e-card {
+            margin: 20px;
+            background: linear-gradient(135deg, #5b42f3, #00ddeb);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            width: 240px;
+            height: 330px;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
 
-		.e-card {
-			margin: 20px;
-			background: linear-gradient(135deg, #5b42f3, #00ddeb);
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-			position: relative;
-			width: 240px;
-			height: 330px;
-			border-radius: 16px;
-			overflow: hidden;
-		}
-		.e-card:hover {
-			transition: scale(1.5);
-		}
-		.infotop {
-			text-align: center;
-			font-size: 20px;
-			top: 5.6em;
-			left: 0;
-			right: 0;
-			color: rgb(255, 255, 255);
-			font-weight: 600;
-		}
-	</style>
+        .e-card:hover {
+            transform: scale(1.05);
+        }
 
+        .infotop {
+            text-align: center;
+            font-size: 20px;
+            top: 5.6em;
+            left: 0;
+            right: 0;
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+        }
 
-	<h1 class="page-title">Pour ou contre</h1>
-	<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-		<div class="col-12 d-flex justify-content-center">
-			{% if subject.id == subjects|last.id %}
-				<div class="alert alert-info mt-3">Il n'y a plus de sujet disponible</div>
-			{% else %}
+        .btn {
+            width: 100%;
+        }
 
-				<div class="e-card h-100">
-					<div class="wave"></div>
-					<img src="{{ subject.img }}" alt=" h-100" class="card-img-top img">
-					<div class="infotop">
-						<div class="name">
-							<h4>Description de la cause</h4>
-							{{ subject.description }}
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<button class="btn btn-success selection" onclick="redirectToNextSubject({{ subject.id }})">pour</button>
-						</div>
-						<div class="col">
-							<button class="btn btn-danger selection" onclick="redirectToNextSubject({{ subject.id }})">contre</button>
-						</div>
-					</div>
-				</div>
-			{% endif %}
+        .btn-success, .btn-danger {
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-		</div>
-	</div>
-	<script>
-		function redirectToNextSubject(currentId) {
-const nextId = currentId + 1; // Assuming the next ID is current ID + 1
-window.location.href = `/subjects/${nextId}`;
-}
-	</script>
+        .btn-success:hover {
+            background-color: #28a745;
+            transform: translateY(-3px);
+        }
+
+        .btn-danger:hover {
+            background-color: #dc3545;
+            transform: translateY(-3px);
+        }
+
+        .alert {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2em;
+            }
+
+            .e-card {
+                width: 90%;
+                margin: 10px auto;
+            }
+
+            .btn {
+                font-size: 18px;
+            }
+        }
+    </style>
+
+    <h1 class="page-title">Pour ou contre</h1>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-12 d-flex justify-content-center">
+            {% if subject.id == subjects|last.id %}
+                <div class="alert alert-info mt-3">Il n'y a plus de sujet disponible</div>
+            {% else %}
+                <div class="e-card h-100">
+                    <div class="wave"></div>
+                    <img src="{{ subject.img }}" alt="Image" class="card-img-top img">
+                    <div class="infotop">
+                        <div class="name">
+                            <h4>Description :</h4>
+                            {{ subject.description }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-success selection" onclick="redirectToNextSubject({{ subject.id }})">Pour</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-danger selection" onclick="redirectToNextSubject({{ subject.id }})">Contre</button>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function redirectToNextSubject(currentId) {
+            const nextId = currentId + 1;
+            window.location.href = `/subjects/${nextId}`;
+        }
+    </script>
 
 {% endblock %}

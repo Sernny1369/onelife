@@ -1,4 +1,46 @@
 <form method="post" action="{{ path('app_subjects_delete', {'id': subject.id}) }}" onsubmit="return confirm('voulez vous supprimer ce sujet??');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ subject.id) }}">
     <button class="btn">Delete</button>
+
+    <a href="{{ path('app_subjects') }}" class="back-btn">Back to list</a>
+
 </form>
+
+<style>
+    /* Style du lien "Back to list" */
+    .back-btn {
+        color: #fff;
+        border: 2px solid #40c9ff;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+        display: inline-block;
+        text-decoration: none;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .back-btn:hover {
+        background-color: #40c9ff;
+    }
+
+    .back-btn:active {
+        transform: scale(0.98);
+    }
+
+    /* Style responsive */
+    @media (max-width: 768px) {
+        .btn-danger {
+            font-size: 14px;
+        }
+        
+        .back-btn {
+            font-size: 14px;
+        }
+    }
+</style>
