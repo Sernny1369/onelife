@@ -3,22 +3,125 @@
 {% block title %}Subjects index{% endblock %}
 
 {% block body %}
+    <style>
+        /* Boutons Ajout */
+        .add-cause-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #af40ff;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-    <h1>Subjects index</h1>
-    		<!-- Bouton "Ajouter un sujet" en haut à droite -->
-		<a href="{{ path('app_subjects_new') }}">
-			<button class="add-cause-btn">Ajouter un sujet</button>
-		</a>
+        .add-cause-btn:hover {
+            background-color: navy;
+            transform: scale(1.05);
+        }
+
+        /* Style général de la table */
+        .table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #f9f9f9;
+        }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #fafafa;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e6e6e6;
+        }
+
+        /* Style des boutons "Show" et "Modifier" */
+        a.button-link {
+            display: inline-block;
+            padding: 4px 8px;
+            margin: 5px;
+            background-color: #5b42f3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        a.button-link:hover {
+            background-color: #4a36cc;
+            transform: scale(1.05);
+        }
+
+        /* Boutons dans la colonne Actions */
+        form button {
+            background-color: #dc3545;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        form button:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+
+        /* Disposition de la colonne "Actions" */
+        td .btn {
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Message "Aucun enregistrement trouvé" */
+        td[colspan="6"] {
+            text-align: center;
+            font-size: 16px;
+            color: #888;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+    </style>
+
+    <!-- Bouton "Ajouter un sujet" en haut à droite -->
+    <a href="{{ path('app_subjects_new') }}">
+        <button class="add-cause-btn">Ajouter un sujet</button>
+    </a>
 
     <table class="table table-hover table-striped table-bordered text-center">
-        <thead >
-            <tr class="row" >
+        <thead>
+            <tr class="row">
                 <th class="col">Id</th>
                 <th class="col">Img</th>
                 <th class="col">Description</th>
                 <th class="col">Personne Pour</th>
                 <th class="col">Personne Contre</th>
-                <th class="col">action</th>
+                <th class="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -30,14 +133,19 @@
                 <td class="col"></td>
                 <td class="col"></td>
                 <td class="col">
-                    <a href="{{ path('app_subjects_show', {'id': subject.id}) }}">show</a>
-                    <a href="{{ path('app_subjects_edit', {'id': subject.id}) }}">Modifier</a>
-                    <a class="btn btn-primary" href="{{ path('app_subjects_delete', {'id':subject.id})}}" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette Cause ?')">supprimer</a>
+                    <a href="{{ path('app_subjects_show', {'id': subject.id}) }}" class="button-link">Show</a>
+                    <a href="{{ path('app_subjects_edit', {'id': subject.id}) }}" class="button-link">Modifier</a>
+                    
+                    {# Formulaire de suppression intégré dans la colonne "Actions" #}
+                    <form method="post" action="{{ path('app_subjects_delete', {'id': subject.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce sujet ?')">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ subject.id) }}">
+                        <button class="btn btn-danger" type="submit">Supprimer</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="6">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
